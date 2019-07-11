@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2012-2014,2018 The Linux Foundation. All rights reserved.
- * Copyright (C) 2020 XiaoMi, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -249,5 +248,6 @@
 #define ADC_SCALE_HW_CALIB_PM5_INTERLAGOS_TEMP	0xF
 
 #define ADC_SCALE_HW_CALIB_MAX			0x20
+#define ADC_SCALE_HW_CALIB_PM5_SMB1398_TEMP	0xF
 
 #endif /* _DT_BINDINGS_QCOM_SPMI_VADC_H */
