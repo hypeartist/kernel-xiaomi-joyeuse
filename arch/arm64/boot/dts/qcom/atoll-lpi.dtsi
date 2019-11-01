@@ -323,7 +323,7 @@
 
 			config {
 				pins = "gpio0";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -336,8 +336,8 @@
 
 			config {
 				pins = "gpio0";
-				drive-strength = <2>;
-				slew-rate = <1>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-disable;
 			};
 		};
@@ -350,7 +350,7 @@
 
 			config {
 				pins = "gpio1";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -363,8 +363,8 @@
 
 			config {
 				pins = "gpio1";
-				drive-strength = <2>;
-				slew-rate = <1>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-bus-hold;
 			};
 		};
@@ -377,7 +377,7 @@
 
 			config {
 				pins = "gpio10";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -390,8 +390,8 @@
 
 			config {
 				pins = "gpio10";
-				drive-strength = <2>;
-				slew-rate = <1>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-bus-hold;
 			};
 		};
@@ -404,7 +404,7 @@
 
 			config {
 				pins = "gpio11";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -417,7 +417,8 @@
 
 			config {
 				pins = "gpio11";
-				drive-strength = <2>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-bus-hold;
 			};
 		};
@@ -430,7 +431,7 @@
 
 			config {
 				pins = "gpio2";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -443,8 +444,8 @@
 
 			config {
 				pins = "gpio2";
-				drive-strength = <2>;
-				slew-rate = <1>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-bus-hold;
 			};
 		};
@@ -457,7 +458,7 @@
 
 			config {
 				pins = "gpio14";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -470,8 +471,8 @@
 
 			config {
 				pins = "gpio14";
-				drive-strength = <2>;
-				slew-rate = <1>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-bus-hold;
 			};
 		};
@@ -484,7 +485,7 @@
 
 			config {
 				pins = "gpio3";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -497,8 +498,8 @@
 
 			config {
 				pins = "gpio3";
-				drive-strength = <2>;
-				slew-rate = <1>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-disable;
 			};
 		};
@@ -511,7 +512,7 @@
 
 			config {
 				pins = "gpio4", "gpio5";
-				drive-strength = <2>;
+				drive-strength = <10>;
 				bias-bus-hold;
 			};
 		};
@@ -524,8 +525,8 @@
 
 			config {
 				pins = "gpio4", "gpio5";
-				drive-strength = <2>;
-				slew-rate = <1>;
+				drive-strength = <10>;
+				slew-rate = <3>;
 				bias-bus-hold;
 			};
 		};
