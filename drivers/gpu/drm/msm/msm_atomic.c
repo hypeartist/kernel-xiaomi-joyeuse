@@ -620,7 +620,7 @@ static void _msm_drm_commit_work_cb(struct kthread_work *work)
 	commit = container_of(work, struct msm_commit, commit_work);
 
 	SDE_ATRACE_BEGIN("complete_commit");
-	complete_commit(commit);
+    complete_commit(commit);
 	SDE_ATRACE_END("complete_commit");
 }
 
