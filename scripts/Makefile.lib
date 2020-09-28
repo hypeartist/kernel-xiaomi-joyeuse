@@ -308,7 +308,7 @@ $(obj)/%.dtb.S: $(obj)/%.dtb
 	$(call cmd,dt_S_dtb)
 
 ifneq ($(DTC_EXT),)
-DTC = $(DTC_EXT)
+DTC = $(DTC_EXT) -q
 else
 DTC = $(objtree)/scripts/dtc/dtc
 endif
