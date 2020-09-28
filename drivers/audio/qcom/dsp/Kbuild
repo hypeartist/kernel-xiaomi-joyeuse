@@ -1,0 +1,121 @@
+AUDIO_ROOT := $(srctree)/drivers/audio/qcom
+
+include $(AUDIO_ROOT)/config/atollauto.conf
+export
+INCS    +=  -include $(AUDIO_ROOT)/config/atollautoconf.h
+
+############ UAPI ############
+UAPI_DIR :=	uapi
+UAPI_INC :=	-I$(AUDIO_ROOT)/include/$(UAPI_DIR)
+
+############ COMMON ############
+COMMON_DIR :=	include
+COMMON_INC :=	-I$(AUDIO_ROOT)/$(COMMON_DIR)
+
+UAPI_DIR :=	uapi
+UAPI_INC :=	-I$(AUDIO_ROOT)/include/$(UAPI_DIR)
+COMMON_DIR :=	include
+COMMON_INC :=	-I$(AUDIO_ROOT)/$(COMMON_DIR)
+
+############ QDSP6V2 ############
+
+# CONFIG_SND_SOC_MSM_QDSP6V2_INTF
+Q6_OBJS += msm-audio-event-notify.o
+Q6_OBJS += audio_calibration.o
+Q6_OBJS += audio_cal_utils.o
+Q6_OBJS += q6adm.o
+Q6_OBJS += q6afe.o
+Q6_OBJS += q6asm.o
+Q6_OBJS += q6audio-v2.o
+Q6_OBJS += q6voice.o
+Q6_OBJS += q6core.o
+Q6_OBJS += q6common.o
+Q6_OBJS += rtac.o
+Q6_OBJS += q6lsm.o
+Q6_OBJS += adsp_err.o
+Q6_OBJS += msm_audio_ion.o
+Q6_OBJS += avtimer.o
+Q6_OBJS += q6_init.o
+Q6_OBJS += apr_elliptic.o
+
+# CONFIG_MSM_ADSP_LOADER
+ADSP_LOADER_OBJS += adsp-loader.o
+
+# CONFIG_MSM_QDSP6_PDR
+QDSP6_PDR_OBJS += audio_pdr.o
+
+# CONFIG_DIGITAL_CDC_RSC_MGR
+# Q6_OBJS += digital-cdc-rsc-mgr.o
+
+# CONFIG_MSM_QDSP6_NOTIFIER
+QDSP6_NOTIFIER_OBJS += audio_notifier.o audio_ssr.o
+
+# CONFIG_MSM_ULTRASOUND
+USF_OBJS += usf.o usfcdev.o q6usm.o
+
+
+LINUX_INC +=	-Iinclude/linux
+
+INCS +=		$(COMMON_INC) \
+		$(UAPI_INC)
+
+EXTRA_CFLAGS += $(INCS)
+
+
+CDEFINES +=	-DANI_LITTLE_BYTE_ENDIAN \
+		-DANI_LITTLE_BIT_ENDIAN \
+		-DDOT11F_LITTLE_ENDIAN_HOST \
+		-DANI_COMPILER_TYPE_GCC \
+		-DANI_OS_TYPE_ANDROID=6 \
+		-DPTT_SOCK_SVC_ENABLE \
+		-Wall\
+		-Werror\
+		-D__linux__
+
+KBUILD_CPPFLAGS += $(CDEFINES)
+
+# Currently, for versions of gcc which support it, the kernel Makefile
+# is disabling the maybe-uninitialized warning.  Re-enable it for the
+# AUDIO driver.  Note that we must use EXTRA_CFLAGS here so that it
+# will override the kernel settings.
+ifeq ($(call cc-option-yn, -Wmaybe-uninitialized),y)
+EXTRA_CFLAGS += -Wmaybe-uninitialized
+endif
+#EXTRA_CFLAGS += -Wmissing-prototypes
+
+ifeq ($(call cc-option-yn, -Wheader-guard),y)
+EXTRA_CFLAGS += -Wheader-guard
+endif
+
+# If the module name is not "wlan", then the define MULTI_IF_NAME to be the
+# same a the QCA CHIP name. The host driver will then append MULTI_IF_NAME to
+# any string that must be unique for all instances of the driver on the system.
+# This allows multiple instances of the driver with different module names.
+# If the module name is wlan, leave MULTI_IF_NAME undefined and the code will
+# treat the driver as the primary driver.
+ifneq ($(MODNAME), qdsp6v2)
+CHIP_NAME ?= $(MODNAME)
+CDEFINES += -DMULTI_IF_NAME=\"$(CHIP_NAME)\"
+endif
+
+obj-y += codecs/
+
+# CONFIG_SND_SOC_MSM_QDSP6V2_INTF
+obj-y += q6_dlkm.o
+q6_dlkm-y := $(Q6_OBJS)
+
+# CONFIG_MSM_ULTRASOUND
+obj-y += usf_dlkm.o
+usf_dlkm-y := $(USF_OBJS)
+
+# CONFIG_MSM_ADSP_LOADER
+obj-y += adsp_loader_dlkm.o
+adsp_loader_dlkm-y := $(ADSP_LOADER_OBJS)
+
+# CONFIG_MSM_QDSP6_PDR
+obj-y += q6_pdr_dlkm.o
+q6_pdr_dlkm-y := $(QDSP6_PDR_OBJS)
+
+# CONFIG_MSM_QDSP6_NOTIFIER
+obj-y += q6_notifier_dlkm.o
+q6_notifier_dlkm-y := $(QDSP6_NOTIFIER_OBJS)
